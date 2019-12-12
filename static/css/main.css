@@ -1,0 +1,12 @@
+.bgimg {
+    background-image:url("../img/bg-masthead.jpg");
+}
+
+.profileimg {
+    background-image: url("../img/bg-callout.jpg");
+    overflow:auto;
+}
+.peraturan {
+    background-image: url("../img/bg-masthead.jpg");
+    overflow:auto;
+}

@@ -1,0 +1,392 @@
+{% set id = data[2] %}
+
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
+    <title>Home - Tes Kecerdasan</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='bootstrap/css/bootstrap.min.css') }}">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,700,300italic,400italic,700italic">
+    <link rel="stylesheet" href="{{ url_for('static', filename='fonts/font-awesome.min.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/Login-Form-Clean.css') }}" />
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/ss.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/main.css') }}">
+
+    <!-- <link href="https://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.12/summernote-bs4.css" rel="stylesheet"> -->
+</head>
+
+<body id="page-top">
+    <a href="#" class="menu-toggle rounded new-menu"><i class="fa fa-bars"></i></a>
+    <div class="rounded new-drp2" style="font-size:29px;">
+        <p class="text-center" style="margin-top:0px;margin-bottom:-50px;font-size:24px;color: rgb(255,255,255);padding:2px 10px;height:46px;">
+            <label>Waktu </label>
+            <label id="minutes">0{{ data[1] }}</label> : <label id="seconds">00</label>
+        </p>
+    </div>
+    <div class="dropdown rounded new-drp"><button class="btn btn-primary dropdown-toggle" data-toggle="dropdown" aria-expanded="false" type="button"><i class="fa fa-user"></i><span>&nbsp;&nbsp;</span><span>&nbsp;<?php echo $user['username'] ?></span><span>&nbsp;&nbsp;</span></button>
+        <div class="dropdown-menu" role="menu">
+            <a class="dropdown-item" role="presentation" href="profile.php">
+                <!-- <img src="assets/img/SEA%20Logo.png" style="max-width: 20px;max-height: 20px; margin-left:0;">&nbsp; --> <?php echo $user['username'] ?>
+            </a>
+            <div class="dropdown-divider" role="presentation"></div>
+            <a class="dropdown-item" role="presentation" href="edit_profile.php">Edit Profile</a>
+            <a class="dropdown-item" role="presentation" href="hasil.php">Lihat Hasil</a>
+            <div class="dropdown-divider" role="presentation"></div>
+            <a class="dropdown-item" role="presentation" href="logout.php">Logout</a>
+        </div>
+    </div>
+    <nav class="navbar navbar-light navbar-expand new-navbar" id="sidebar-wrapper">
+        <div class="container"><button class="navbar-toggler d-none" data-toggle="collapse" data-target="#"></button>
+            <div class="collapse navbar-collapse">
+                <ul class="nav navbar-nav sidebar-nav" id="sidebar-nav" style="padding: 20px;">
+                    <li class="nav-item sidebar-nav-item" role="presentation"><a class="nav-link js-scroll-trigger" href="index.php">Home</a></li>
+                    <li class="nav-item sidebar-nav-item" role="presentation"><a class="nav-link js-scroll-trigger" href="peraturan.php?id=1">Soal</a></li>
+                    <li class="nav-item sidebar-nav-item" role="presentation"><a class="nav-link js-scroll-trigger" href="nilai.php">Nilai</a></li>
+                    <li class="nav-item sidebar-nav-item" role="presentation"><a class="nav-link js-scroll-trigger" href="profile.php">Profile</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+    <header class="profileimg d-flex masthead login-clean">
+        <div class="container my-auto">
+
+            <form action="soal" method="post">
+                <h2 style="font-size: 54px;padding-top: 20px;padding-bottom: 11px;">Soal</h2>
+                <input type="hidden" name="id_soal" value="{{ id }}">
+                {% for dt in data[0] %}
+                
+                {% set no = dt[2] %}
+                {% set nono = no ~ "[]" %}
+                {% set soal = dt[3] %}
+                {% set a = dt[4] %}
+                {% set b = dt[5] %}
+                {% set c = dt[6] %}
+                {% set d = dt[7] %}
+                {% set e = dt[8] %}
+                {% set n1 = dt[9] %}
+                {% set n2 = dt[10] %}
+                {% set n3 = dt[11] %}
+                {% set n4 = dt[12] %}
+                {% set n5 = dt[13] %}
+                {% set n6 = dt[14] %}
+                {% set n7 = dt[15] %}
+                {% set n8 = dt[16] %}
+                {% set n9 = dt[17] %}
+                {% set n0 = dt[18] %}
+                {% if id==7 or id==8 %}
+                    {% set a = url_for('static', filename='img/{}'.format(a)) %}
+                    {% set b = url_for('static', filename='img/{}'.format(b)) %}
+                    {% set c = url_for('static', filename='img/{}'.format(c)) %}
+                    {% set d = url_for('static', filename='img/{}'.format(d)) %}
+                    {% set e = url_for('static', filename='img/{}'.format(e)) %}
+                    {% set soal = url_for('static', filename='img/{}'.format(soal)) %}
+                {% endif %}
+                <!-- echo " -->
+                <div class='form-group'>
+                    <div class='form-row'>
+                        <!-- <div class='col-1 col-sm-1 col-md-1 col-lg-1 col-xl-1'> -->
+                        <!-- </div> -->
+                        <div class='col'>
+                                {% if id!=7 and id!=8 %}
+                                    <p style='margin-bottom: 5px;'>{{ no }}. {{ soal|safe }}</p>
+                                {% else %}
+                                    <p style='margin-bottom: 5px;'>{{ no }}.</p>
+                                {% endif %}
+                            <!-- "; -->
+                            {% if id!=4 and id!=5 and id!=6 and id!=7 and id!=8 and id!=9 %}
+                            <!-- if ($id != 4 && $id != 5 && $id !=6 && $id !=7 && $id !=8 && $id !=9 ) { -->
+                            <!-- echo " -->
+                                <div>
+                                    <div class='form-check d-inline'>
+                                        <input class='form-check-input' type='radio' name='{{ no }}' value='a' id='formCheck-1'>
+                                        <label class='form-check-label'  for='formCheck-1'>{{ a|safe }}</label>
+                                    </div>
+                                </div>
+                                <div>
+                                    <div class='form-check d-inline'>
+                                        <input class='form-check-input' type='radio' name='{{ no }}' value='b' id='formCheck-1'>
+                                        <label class='form-check-label' for='formCheck-1'>{{ b|safe }}</label>
+                                    </div>
+                                </div>
+                                <div>
+                                    <div class='form-check d-inline'>
+                                        <input class='form-check-input' type='radio' name='{{ no }}' value='c' id='formCheck-1'>
+                                        <label class='form-check-label' for='formCheck-1'>{{ c|safe }}</label>
+                                    </div>
+                                </div>
+                                <div>
+                                    <div class='form-check d-inline'>
+                                        <input class='form-check-input' type='radio' name='{{ no }}' value='d' id='formCheck-1'>
+                                        <label class='form-check-label' for='formCheck-1'>{{ d|safe }}</label>
+                                    </div>
+                                </div>
+                                <div>
+                                    <div class='form-check d-inline'>
+                                        <input class='form-check-input' type='radio' name='{{ no }}' value='e' id='formCheck-1'>
+                                        <label class='form-check-label' for='formCheck-1'>{{ e|safe }}</label>
+                                    </div>
+                                </div>
+                                <!-- ";
+
+                            } -->
+                            {% elif id==5 %} 
+                                <div>
+                                    <div class='form-check d-inline' style='margin : 0 10px 0 10px;'>
+                                        <input class='form-check-input' type='checkbox' name='{{ no }}' value='1' id='formCheck-1' checked>
+                                        <label class='form-check-label' for='formCheck-1'>{{ n1 }}</label>
+                                    </div>
+                                    <div class='form-check d-inline' style='margin : 0 10px 0 10px;'>
+                                        <input class='form-check-input' type='checkbox' name='{{ no }}' value='2' id='formCheck-1'>
+                                        <label class='form-check-label' for='formCheck-1'>{{ n2 }}</label>
+                                    </div>
+                                    <div class='form-check d-inline' style='margin : 0 10px 0 10px;'>
+                                        <input class='form-check-input' type='checkbox' name='{{ no }}' value='3' id='formCheck-1'>
+                                        <label class='form-check-label' for='formCheck-1'>{{ n3 }}</label>
+                                    </div>
+                                    <div class='form-check d-inline' style='margin : 0 10px 0 10px;'>
+                                        <input class='form-check-input' type='checkbox' name='{{ no }}' value='4' id='formCheck-1'>
+                                        <label class='form-check-label' for='formCheck-1'>{{ n4 }}</label>
+                                    </div>
+                                    <div class='form-check d-inline' style='margin : 0 10px 0 10px;'>
+                                        <input class='form-check-input' type='checkbox' name='{{ no }}' value='5' id='formCheck-1'>
+                                        <label class='form-check-label' for='formCheck-1'>{{ n5 }}</label>
+                                    </div>
+                                    <div class='form-check d-inline' style='margin : 0 10px 0 10px;'>
+                                        <input class='form-check-input' type='checkbox' name='{{ no }}' value='6' id='formCheck-1'>
+                                        <label class='form-check-label' for='formCheck-1'>{{ n6 }}</label>
+                                    </div>
+                                    <div class='form-check d-inline' style='margin : 0 10px 0 10px;'>
+                                        <input class='form-check-input' type='checkbox' name='{{ no }}' value='7' id='formCheck-1'>
+                                        <label class='form-check-label' for='formCheck-1'>{{ n7 }}</label>
+                                    </div>
+                                    <div class='form-check d-inline' style='margin : 0 10px 0 10px;'>
+                                        <input class='form-check-input' type='checkbox' name='{{ no }}' value='8' id='formCheck-1'>
+                                        <label class='form-check-label' for='formCheck-1'>{{ n8 }}</label>
+                                    </div>
+                                    <div class='form-check d-inline' style='margin : 0 10px 0 10px;'>
+                                        <input class='form-check-input' type='checkbox' name='{{ no }}' value='9' id='formCheck-1'>
+                                        <label class='form-check-label' for='formCheck-1'>{{ n9 }}</label>
+                                    </div>
+                                    <div class='form-check d-inline' style='margin : 0 10px 0 10px;'>
+                                        <input class='form-check-input' type='checkbox' name='{{ no }}' value='0' id='formCheck-1'>
+                                        <label class='form-check-label' for='formCheck-1'>{{ n0 }}</label>
+                                    </div>
+                                </div>
+                            {% elif id==6 %}
+                    <!-- } 
+                    else if ($id == 6) {
+                    echo " -->
+                    
+
+                                <div>
+                                    <div class='form-check d-inline' style='margin : 0 10px 0 10px;'>
+                                        <input class='form-check-input' type='checkbox' name='{{ nono }}' value='1' id='formCheck-1'>
+                                        <label class='form-check-label' for='formCheck-1'>{{ n1 }}</label>
+                                    </div>
+                                    <div class='form-check d-inline' style='margin : 0 10px 0 10px;'>
+                                        <input class='form-check-input' type='checkbox' name='{{ nono }}' value='2' id='formCheck-1'>
+                                        <label class='form-check-label' for='formCheck-1'>{{ n2 }}</label>
+                                    </div>
+                                    <div class='form-check d-inline' style='margin : 0 10px 0 10px;'>
+                                        <input class='form-check-input' type='checkbox' name='{{ nono }}' value='3' id='formCheck-1'>
+                                        <label class='form-check-label' for='formCheck-1'>{{ n3 }}</label>
+                                    </div>
+                                    <div class='form-check d-inline' style='margin : 0 10px 0 10px;'>
+                                        <input class='form-check-input' type='checkbox' name='{{ nono }}' value='4' id='formCheck-1'>
+                                        <label class='form-check-label' for='formCheck-1'>{{ n4 }}</label>
+                                    </div>
+                                    <div class='form-check d-inline' style='margin : 0 10px 0 10px;'>
+                                        <input class='form-check-input' type='checkbox' name='{{ nono }}' value='5' id='formCheck-1'>
+                                        <label class='form-check-label' for='formCheck-1'>{{ n5 }}</label>
+                                    </div>
+                                    <div class='form-check d-inline' style='margin : 0 10px 0 10px;'>
+                                        <input class='form-check-input' type='checkbox' name='{{ nono }}' value='6' id='formCheck-1'>
+                                        <label class='form-check-label' for='formCheck-1'>{{ n6 }}</label>
+                                    </div>
+                                    <div class='form-check d-inline' style='margin : 0 10px 0 10px;'>
+                                        <input class='form-check-input' type='checkbox' name='{{ nono }}' value='7' id='formCheck-1'>
+                                        <label class='form-check-label' for='formCheck-1'>{{ n7 }}</label>
+                                    </div>
+                                    <div class='form-check d-inline' style='margin : 0 10px 0 10px;'>
+                                        <input class='form-check-input' type='checkbox' name='{{ nono }}' value='8' id='formCheck-1'>
+                                        <label class='form-check-label' for='formCheck-1'>{{ n8 }}</label>
+                                    </div>
+                                    <div class='form-check d-inline' style='margin : 0 10px 0 10px;'>
+                                        <input class='form-check-input' type='checkbox' name='{{ nono }}' value='9' id='formCheck-1'>
+                                        <label class='form-check-label' for='formCheck-1'>{{ n9 }}</label>
+                                    </div>
+                                    <div class='form-check d-inline' style='margin : 0 10px 0 10px;'>
+                                        <input class='form-check-input' type='checkbox' name='{{ nono }}' value='0' id='formCheck-1'>
+                                        <label class='form-check-label' for='formCheck-1'>{{ n0 }}</label>
+                                    </div>
+                                </div>
+
+                <!-- } else if ($id == 7) {
+
+                echo " -->
+                            {% elif id==7 %}
+                                <div>
+                                    <figure>
+                                        <div class='form-check d-inline'>
+                                            <img src='{{ soal|safe }}' width='120' height='100'>
+                                        </div>
+                                    </figure>
+                                    <div>
+                                        <div>
+                                            <div class='form-check d-inline'>
+                                                <input class='form-check-input' type='radio' name='{{ no }}' value='a' id='formCheck-1'>
+                                                <label class='form-check-label' for='formCheck-1'>
+                                                    <img src='{{ a|safe }}' width='120' height='100'>
+                                                </label>
+                                            </div>
+                                        </div>
+                                        <br>
+                                        <div>
+                                            <div class='form-check d-inline'>
+                                                <input class='form-check-input' type='radio' name='{{ no }}' value='b' id='formCheck-1'>
+                                                <label class='form-check-label' for='formCheck-1'>
+                                                    <img src='{{ b|safe }}' width='100' height='100'>
+                                                </label>
+                                            </div>
+                                            <br>
+
+                                        </div>
+                                        <br>
+                                        <div>
+                                            <div class='form-check d-inline'>
+                                                <input class='form-check-input' type='radio' name='{{ no }}' value='c' id='formCheck-1'>
+                                                <label class='form-check-label' for='formCheck-1'>
+                                                    <img src='{{ c|safe }}' width='100' height='100'>
+                                                </label>
+                                            </div>
+
+                                        </div>
+                                        <br>
+                                        <div>
+                                            <div class='form-check d-inline'>
+                                                <input class='form-check-input' type='radio' name='{{ no }}' value='d' id='formCheck-1'>
+                                                <label class='form-check-label' for='formCheck-1'>
+                                                    <img src='{{ d|safe }}' width='100' height='100'>
+                                                </label>
+                                            </div>
+
+                                        </div>
+                                        <br>
+                                        <div>
+                                            <div class='form-check d-inline'>
+                                                <input class='form-check-input' type='radio' name='{{ no }}' value='e' id='formCheck-1'>
+                                                <label class='form-check-label' for='formCheck-1'>
+                                                    <img src='{{ e|safe }}' width='100' height='100'>
+                                                </label>
+                                            </div>
+                            {% elif id==8 %}
+                        <!-- } else if ($id == 8) {
+
+                        echo " -->
+                                <div>
+                                    <figure>
+                                        <div class='form-check d-inline'>
+                                            <img src='{{ soal|safe }}' width='100' height='100'>
+                                        </div>
+                                    </figure>
+                                    <div>
+                                        <div>
+                                            <div class='form-check d-inline'>
+                                                <input class='form-check-input' type='radio' name='{{ no }}' value='a' id='formCheck-1'>
+                                                <label class='form-check-label' for='formCheck-1'>
+                                                    <img src='{{ a|safe }}' width='100' height='100'>
+                                                </label>
+                                            </div>
+                                        </div>
+                                        <br>
+                                        <div>
+                                            <div class='form-check d-inline'>
+                                                <input class='form-check-input' type='radio' name='{{ no }}' value='b' id='formCheck-1'>
+                                                <label class='form-check-label' for='formCheck-1'>
+                                                    <img src='{{ b|safe }}' width='100' height='100'>
+                                                </label>
+                                            </div>
+                                            <br>
+                                        </div>
+                                        <br>
+                                        <div>
+                                            <div class='form-check d-inline'>
+                                                <input class='form-check-input' type='radio' name='{{ no }}' value='c' id='formCheck-1'>
+                                                <label class='form-check-label' for='formCheck-1'>
+                                                    <img src='{{ c|safe }}' width='100' height='100'>
+                                                </label>
+                                            </div>
+                                        </div>
+                                        <br>
+                                        <div>
+                                            <div class='form-check d-inline'>
+                                                <input class='form-check-input' type='radio' name='{{ no }}' value='d' id='formCheck-1'>
+                                                <label class='form-check-label' for='formCheck-1'>
+                                                    <img src='{{ d|safe }}' width='100' height='100'>
+                                                </label>
+                                            </div>
+                                        </div>
+                                        <br>
+                                        <div>
+                                            <div class='form-check d-inline'>
+                                                <input class='form-check-input' type='radio' name='{{ no }}' value='e' id='formCheck-1'>
+                                                <label class='form-check-label' for='formCheck-1'>
+                                                    <img src='{{ e|safe }}' width='100' height='100'>
+                                                </label>
+                                            </div>
+                            {% elif id==9 %}
+                                <div>
+                                    <p style='margin-bottom: 5px;'></p>
+                                </div>
+                            {% else %}
+                                <div>
+                                    <input class='form-control d-inline' type='text' name='{{ no }}' value='' style='max-width: 200px;max-height: 20px;margin-left: 0px;padding:0px' autocomplete='off'>
+                                    </input>
+                                </div>
+                            {% endif %}
+                    </div>
+                </div>
+            </div>
+        {% endfor %}
+        <button id="selesai" class="btn btn-primary text-left" type="submit" style="margin-bottom: 20px;" name="selesai">Submit</button>
+    </form>
+
+</div>
+
+</header>
+
+<script>
+        var minutesLabel = document.getElementById("minutes");
+        var secondsLabel = document.getElementById("seconds");
+        var totalSeconds = parseInt('{{ data[1] }}') * 60;
+        console.log(totalSeconds);
+    
+        function setTime() {
+            --totalSeconds;
+            secondsLabel.innerHTML = pad(totalSeconds % 60);
+            minutesLabel.innerHTML = pad(parseInt(totalSeconds / 60));
+            if(totalSeconds == 0)
+                document.getElementById("selesai").click();
+        }
+    
+        function pad(val) {
+            var valString = val + "";
+            if (valString.length < 2) {
+                return "0" + valString;
+            } else {
+                return valString;
+            }
+        }
+        setInterval(setTime, 1000);
+</script>
+
+<script src="{{ url_for('static', filename='js/jquery.min.js') }}"></script>
+<script src="{{ url_for('static', filename='bootstrap/js/bootstrap.min.js') }}"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-easing/1.4.1/jquery.easing.min.js"></script>
+<script src="https://rawgit.com/jackmoore/autosize/master/dist/autosize.min.js"></script>
+<script src="{{ url_for('static', filename='js/stylish-portfolio.js') }}"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.12/summernote-bs4.js"></script>
+</body>
+</html>
