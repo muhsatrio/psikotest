@@ -1,9 +1,10 @@
+<!DOCTYPE html>
 <html>
 
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
-    <title>Peraturan - Tes Kecerdasan</title>
+    <title>Nilai - Tes Kecerdasan</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='bootstrap/css/bootstrap.min.css') }}">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,700,300italic,400italic,700italic">
     <link rel="stylesheet" href="{{ url_for('static', filename='fonts/font-awesome.min.css') }}">
@@ -13,7 +14,9 @@
     <link href="https://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.12/summernote-bs4.css" rel="stylesheet">
 </head>
 
-<body id="page-top"><a href="#" class="menu-toggle rounded new-menu"><i class="fa fa-bars"></i></a>
+<body id="page-top">
+    <a href="#" class="menu-toggle rounded new-menu"><i class="fa fa-bars"></i></a>
+    
     <div class="dropdown rounded new-drp"><button class="btn btn-primary dropdown-toggle" data-toggle="dropdown" aria-expanded="false" type="button"><i class="fa fa-user"></i><span>&nbsp;&nbsp;</span><span>&nbsp;<?php echo $user['username'] ?></span><span>&nbsp;&nbsp;</span></button>
         <div class="dropdown-menu" role="menu">
             <a class="dropdown-item" role="presentation" href="profile">
@@ -40,32 +43,54 @@
     </nav>
     <header class="profileimg d-flex masthead login-clean">
         <div class="container my-auto">
-            <form style="background-color: rgba(81,89,91,0.76); max-width:none;" method="POST" action="peraturan">
-                <div>
-                    <h5 class="text-left" style="color:white">Peraturan</h5>
-                    <hr>
-                    <h2 class="text-center card-title" style="margin-bottom: 20px; color:white">{{ data[0][1] }}</h2>
-                    <h6 class="card-subtitle mb-2" style="color:white">Waktu Pengerjaan :&nbsp;{{ data[0][2] }} Menit</h6>
-                    <h6 class="card-subtitle mb-2" style="color:white">Jumlah Soal :&nbsp;{{ data[0][7] }} Soal</h6>
-                    <h6 class="card-subtitle mb-2" style="color:white">Nilai Maksimal :&nbsp;{{ data[0][3] }}</h6>
-                    <h3 class="card-subtitle mb-2" style="color:white;margin: 30px 0px;">{{ data[0][6]|safe }}</h3>
-                    <div style="color:white">{{ data[0][4]|safe }}
-                    </div> 
-                    <!-- <td> -->
-                    {% if data[0][0]==7 or data[0][0]==8 %}
-                        <img src="{{ data[2]|safe }}" width="450px" height="220px">
-                    {% endif %}
-                        <!-- </td>  -->
-                    <div class="form-check" style="color: white;margin: 30px 0px;">
-                        <input class="form-check-input" type="checkbox" id="formCheck" name="ceklis" value="1" required oninvalid="this.setCustomValidity('Silahkan diceklis')" oninput="setCustomValidity('')">
-                        <input type="hidden" name="id" value="{{ data[1]|safe }}">
-                        <label class="form-check-label" for="formCheck">Saya mengerti dan siap untuk mengikuti tes</label>
-                    </div>
-                    <button class="btn btn-info btn-block" type="submit" name="mulai" style="margin-top: 10px;">Mulai Tes</button>
-                </div>
-            </form>
+        	<table border="1" width="100%" style="background-color: #ffffff;">
+        		<tr style="text-align: center;">
+        			<th width="15%">PAKET SOAL</th>
+        			<th width="10%">BENAR</th>
+        			<th width="10%">SALAH</th>
+        			<th width="10%">KOSONG</th>
+        			<th width="20%">SCORE</th>
+        			<th width="35%">KETERANGAN</th>
+                </tr>
+                {% set total = 0 %}
+                {% for dt in data[0] %}
+                    {% set soal = dt[2] %}
+                    {% set benar = dt[3] %}
+                    {% set salah = dt[4] %}
+                    {% set kosong = dt[5] %}
+                    {% set score = dt[6] | int %}
+                    {% set keterangan = dt[8] %}
+        				<tr>
+        					<td style="text-align: center;">{{ soal }}</td>
+        					<td style="text-align: center;">{{ benar }}</td>
+        					<td style="text-align: center;">{{ salah }}</td>
+        					<td style="text-align: center;">{{ kosong }}</td>
+        					<td style="text-align: center;">{{ score }}</td>
+        					<td style="text-align: center;">{{ keterangan }}</td>
+        				</tr>
+            {% endfor %}
+        	</table>
+        	<br>
+            <div style="width: 50%; float: left;">
+        	<h3>Total Score : {{ data[1] }}</h3>
+            </div>
+            <div style="width: 50%; float: left;">
+            <h4>Total IQ : {{ data[2] }} ({{ data[3] }})</h4>
+            <div class='form-group'>
+        <div class='col-md-12 text-right'> 
+            <button onclick='myFunction()' style='font-family:avenir black oblique; font-size:16px;color:#000000' type='submit' name='submit' class='btn btn-default'>Print</button>
+            <script>
+            function myFunction() {
+                window.print();
+            }
+            </script>
         </div>
+
+        </div>
+
     </header>
+
+
     <script src="{{ url_for('static', filename='js/jquery.min.js') }}"></script>
     <script src="{{ url_for('static', filename='bootstrap/js/bootstrap.min.js') }}"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-easing/1.4.1/jquery.easing.min.js"></script>
